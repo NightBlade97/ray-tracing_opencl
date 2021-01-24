@@ -341,17 +341,15 @@ float3 trace_ray(Ray* r, float4 big_sphere, float4 small_sphere, global float* u
             r->direction = h.normal;
             int seed = (int) depth + un_random[0] * r->direction.x + number_of_ray;
             seed = seed % 1000;
-           
-            
+                       
             float3 rand = random_in_unit_sphere(un_random, seed);
             
-            //rand /= length(rand);
             if (global_id_x == 1 && global_id_y == 1){
                 //printf("Direction of ray  %f %f %f \n", r->direction.x ,  r->direction.y,  r->direction.z  );
                // printf("Result of random_in_unit_sphere  %f %f %f \n",rand.x , rand.y, rand.z  );
              }
             r->direction += rand;
-            r->direction /= length(r->direction);
+
             factor *= 0.5f; // diffuse 50% of light, scatter the remaining
         } else {
             break;
